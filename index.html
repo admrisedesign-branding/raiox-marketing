@@ -155,11 +155,12 @@ h1 em{font-style:normal;color:var(--or)}
     <div class="temp-badge" id="r-badge"></div>
     <h2 id="r-title"></h2>
     <div class="diag" id="r-diag"></div>
-    <div class="cta-box">
-      <h3>Quer destravar isso com a gente?</h3>
-      <p>A RISE constrói marca, site e captação que transformam atenção em cliente.</p>
-      <a href="https://wa.me/5592991755756?text=Oi%20RISE!%20Fiz%20o%20Raio-X%20do%20Marketing%20e%20quero%20conversar." target="_blank">Falar com a RISE no WhatsApp</a>
+    <div class="cta-box" id="r-cta">
+      <h3 id="cta-h3"></h3>
+      <p id="cta-p"></p>
+      <a id="cta-primary" href="#" target="_blank"></a>
     </div>
+    <a id="cta-secondary" href="#" target="_blank" style="display:block;text-align:center;color:var(--dm);font-size:14px;text-decoration:underline;margin-bottom:8px"></a>
     <button class="restart" onclick="location.reload()">↺ Refazer o raio-x</button>
   </section>
 
@@ -383,6 +384,29 @@ function showResult(score, nome){
   $('#r-title').textContent = title;
   $('#r-diag').innerHTML = diag;
   $('#gauge-arc').style.stroke = cor;
+
+  // ----- CTA adaptado por temperatura -----
+  const CAPTA_URL = 'https://capta.riseagencia.com';
+  const WA_RISE = 'https://wa.me/5592991755756?text=' + encodeURIComponent('Oi RISE! Fiz o Raio-X do Marketing (score '+score+') e quero conversar.');
+  const ctaCapta = { h:'Comece a captar seus leads hoje', p:'Você não precisa de um site caro agora. Com o Capta, você captura e organiza cada lead antes do WhatsApp — a partir de R$97/mês.', label:'Conhecer o Capta →', href:CAPTA_URL };
+  const ctaRise  = { h:'Vamos levar seu marketing além', p:'A RISE constrói marca, site e captação sob medida pra transformar atenção em cliente.', label:'Falar com a RISE →', href:WA_RISE };
+
+  let principal, secundario, secLabel;
+  if(score>=70){
+    // aquecido: RISE primeiro, Capta como apoio
+    principal = ctaRise;
+    secundario = CAPTA_URL; secLabel = 'Quer organizar a captação? Conheça o Capta';
+  } else {
+    // morno/frio: Capta primeiro (acessível), RISE como apoio
+    principal = ctaCapta;
+    secundario = WA_RISE; secLabel = 'Prefere conversar antes? Falar com a RISE';
+  }
+  $('#cta-h3').textContent = principal.h;
+  $('#cta-p').textContent = principal.p;
+  $('#cta-primary').textContent = principal.label;
+  $('#cta-primary').href = principal.href;
+  $('#cta-secondary').textContent = secLabel;
+  $('#cta-secondary').href = secundario;
 
   // anima gauge + número
   const circ = 540, off = circ - (circ*score/100);
