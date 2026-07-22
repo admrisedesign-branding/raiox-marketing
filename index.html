@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Raio-X 360 — RISE no DSX</title>
-<meta name="description" content="Descubra em 90 segundos o maior furo que trava o crescimento do seu negócio.">
+<meta name="description" content="Você investe em marketing. Mas ele te dá lucro? Diagnóstico gratuito em 90 segundos.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%23FF5A1F'/%3E%3Ctext x='50' y='73' font-family='Arial,Helvetica,sans-serif' font-size='68' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#100C09">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -149,16 +151,16 @@
     <!-- INTRO -->
     <section class="screen on" id="s-intro">
       <div class="eyebrow">Diagnóstico gratuito</div>
-      <h1>Onde está o <em>furo</em> que trava o crescimento do seu negócio?</h1>
-      <p class="lead">Responde 4 perguntas rápidas. Na hora, você descobre seu ponto mais fraco — e o primeiro passo pra corrigir.</p>
+      <h1>Você investe em marketing. Mas ele te dá <em>lucro</em>?</h1>
+      <p class="lead">Responde 4 perguntas rápidas. Na hora, você descobre o que está segurando seu crescimento — e o primeiro movimento pra destravar.</p>
       <button class="cta" onclick="go('router')">Começar meu raio-x →</button>
-      <p class="fineprint">Feito pela RISE · Design, sites, tráfego e marca que dão resultado. Seus dados ficam só com a gente.</p>
+      <p class="fineprint">Feito pela RISE · Marca, sites, tráfego e processo comercial que dão resultado. Seus dados ficam só com a gente.</p>
     </section>
 
     <!-- ROUTER -->
     <section class="screen" id="s-router">
       <div class="prog"><div class="bar"><i id="pbar"></i></div><span id="pnum">1/4</span></div>
-      <h2 class="qhead">Pra começar: o que <em>mais trava</em> seu negócio hoje?</h2>
+      <h2 class="qhead">Pra começar: o que <em>mais trava</em> seu crescimento hoje?</h2>
       <div class="opts" id="routerOpts"></div>
     </section>
 
@@ -218,7 +220,7 @@
 
   </div>
 
-  <div class="demoflag">⚙ Modo demonstração — nada é salvo. Origem: dsx-2026</div>
+  <div class="demoflag">Seus dados ficam só com a RISE · Não compartilhamos com ninguém</div>
 </div>
 
 <script>
@@ -313,72 +315,142 @@ async function flushPendentes(){
 flushPendentes();
 /* ========================================================================= */
 
+/* ===== Trilhas recalibradas para o público do DSX =====
+   As perguntas não checam mais SE a pessoa tem (site, anúncio, post).
+   Checam SE FUNCIONA e SE ELA SABE O NÚMERO — assim quem já é avançado
+   também trava em alguma, que é exatamente onde a RISE entra.          */
 const PATHS = {
+
   marca:{
-    icon:"🎯", label:"Minha marca não passa a imagem certa",
-    service:"Identidade Visual & Branding",
-    desc:"Sua marca é a primeira impressão — e hoje ela não está trabalhando a seu favor. Uma identidade sólida faz o cliente confiar antes mesmo de você falar preço.",
+    icon:"👑", label:"Minha marca não sustenta o preço que quero cobrar",
+    service:"Posicionamento & Identidade",
+    desc:"Preço é consequência de percepção. Quando a marca não comunica o nível do que você entrega, você passa a competir por desconto — e margem vira o seu gargalo, não a demanda.",
     qs:[
-      {q:"Sua marca tem identidade visual profissional (logo, cores e tipografia definidos)?",
-       o:[{t:"Sim, completa e consistente",v:100},{t:"Tenho só um logo",v:50,f:"Você tem logo, mas não um sistema de marca — falta o que sustenta a identidade em todos os pontos."},{t:"É meio improvisado",v:10,f:"Sem identidade definida, cada material fala uma língua e a marca não fixa na cabeça do cliente."}]},
-      {q:"Quando alguém vê seu perfil, entende na hora o que você faz e pra quem?",
-       o:[{t:"Totalmente claro",v:100},{t:"Mais ou menos",v:50,f:"A proposta não está clara em segundos — e no digital, segundos é tudo que você tem."},{t:"Não, confunde",v:10,f:"Se a pessoa não entende o que você faz, ela rola pra baixo e some."}]},
-      {q:"Sua comunicação é consistente entre Instagram, site e materiais?",
-       o:[{t:"Sim, tudo alinhado",v:100},{t:"Varia bastante",v:50,f:"A inconsistência entre canais faz a marca parecer menor do que ela é."},{t:"Cada um é de um jeito",v:10,f:"Marcas dispersas passam amadorismo — mesmo quando o serviço é excelente."}]}
+      {q:"Quando você aumenta o preço, o cliente aceita ou questiona?",
+       o:[
+         {t:"Aceita — ele percebe o valor",v:100},
+         {t:"Questiona bastante",v:50,f:"Seu preço é discutido porque o valor não está evidente antes da conversa — a marca não está fazendo esse trabalho por você."},
+         {t:"Perco venda por preço",v:10,f:"Perder por preço é sintoma de posicionamento: sem diferenciação clara, o cliente só tem o número pra comparar."}
+       ]},
+      {q:"Quando alguém precisa do que você vende, sua marca vem à cabeça?",
+       o:[
+         {t:"Sim, sou referência no meu nicho",v:100},
+         {t:"Só quem já me conhece lembra",v:50,f:"Você depende de quem já te conhece — sem lembrança de marca, cada venda nova começa do zero."},
+         {t:"Disputo atenção com todo mundo",v:15,f:"Sem território próprio na cabeça do cliente, você concorre no mesmo balcão que todo mundo e o critério vira preço."}
+       ]},
+      {q:"Sua comunicação atrai o cliente que você quer — ou o que aparece?",
+       o:[
+         {t:"O perfil que eu quero",v:100},
+         {t:"Vem de tudo um pouco",v:45,f:"Atrair todo mundo custa caro: seu time gasta tempo com quem nunca ia fechar no seu ticket."},
+         {t:"Atraio muito perfil errado",v:10,f:"Comunicação desalinhada filtra ao contrário — traz volume errado e afasta quem pagaria mais."}
+       ]}
     ]
   },
+
   site:{
-    icon:"🌐", label:"Meu site / presença digital é fraco",
-    service:"Sites & Presença Digital",
-    desc:"No fim, tráfego, indicação e anúncio caem todos no mesmo lugar: seu site. Se ele não converte, tudo que vem antes vira desperdício.",
+    icon:"📉", label:"Meu site recebe visita mas não converte",
+    service:"Sites & Conversão",
+    desc:"Todo investimento que você faz — anúncio, conteúdo, indicação — desemboca no mesmo lugar. Se a conversão ali é baixa, você não tem problema de topo de funil: tem um vazamento no fundo.",
     qs:[
-      {q:"Você tem um site próprio (não só o Instagram)?",
-       o:[{t:"Sim, atualizado",v:100},{t:"Tenho, mas está velho",v:50,f:"Um site desatualizado derruba confiança e ranqueia mal no Google."},{t:"Não tenho",v:10,f:"Sem site, você depende 100% do Instagram — um canal que não é seu e pode cair a qualquer momento."}]},
-      {q:"Quem chega no seu site consegue entrar em contato ou comprar fácil?",
-       o:[{t:"Sim, é bem claro",v:100},{t:"Dá pra melhorar",v:50,f:"Caminho de conversão confuso: a pessoa quer, mas não acha onde clicar."},{t:"Não sei / é difícil",v:10,f:"Se comprar/falar contigo dá trabalho, o cliente desiste antes de tentar."}]},
-      {q:"Seu site abre rápido e funciona bem no celular?",
-       o:[{t:"Sim, é leve",v:100},{t:"Mais ou menos",v:50,f:"Cada segundo de carregamento a mais derruba uma fatia dos visitantes."},{t:"É lento / não sei",v:10,f:"Site lento no celular = maioria do seu público indo embora antes de ver a oferta."}]}
+      {q:"Você sabe qual percentual de quem visita seu site vira contato?",
+       o:[
+         {t:"Sei o número",v:100},
+         {t:"Tenho uma ideia aproximada",v:45,f:"Sem a taxa de conversão real, você não sabe se o problema é atrair mais gente ou converter melhor a que já chega."},
+         {t:"Não meço isso",v:10,f:"Sem medir conversão, todo aumento de investimento amplia o vazamento junto — você paga mais caro pelo mesmo resultado."}
+       ]},
+      {q:"Seu site foi construído pra vender ou pra existir?",
+       o:[
+         {t:"Pra converter — e a gente testa",v:100},
+         {t:"É bonito, mas institucional",v:45,f:"Site institucional informa, não vende. Ele apresenta a empresa e deixa a decisão por conta do visitante."},
+         {t:"Foi feito uma vez e nunca mais mexido",v:15,f:"Site parado é ativo depreciando: o mercado mudou, a oferta mudou, e a página continua na versão antiga do seu negócio."}
+       ]},
+      {q:"Quem chega decidido a comprar, quantos passos leva pra falar com você?",
+       o:[
+         {t:"Um ou dois, direto",v:100},
+         {t:"Três ou quatro",v:50,f:"Cada passo a mais derruba uma fatia de quem já estava decidido — a fricção cobra caro justamente do lead quente."},
+         {t:"Precisa procurar",v:10,f:"Se o cliente decidido precisa procurar como falar com você, você está perdendo a venda mais fácil que tinha."}
+       ]}
     ]
   },
+
   trafego:{
-    icon:"🚀", label:"Invisto em anúncio mas não vem retorno",
+    icon:"💸", label:"Invisto em marketing, mas não sei o retorno real",
     service:"Tráfego Pago & Performance",
-    desc:"Anúncio não é sobre gastar mais — é sobre para onde manda, o que mede e como converte. Ajustando isso, o mesmo orçamento rende muito mais.",
+    desc:"A diferença entre gastar e investir é um número: quanto volta. Sem ele, cada decisão de verba é aposta — e você não consegue escalar o que funciona nem cortar o que não funciona.",
     qs:[
-      {q:"Você já investe em anúncios (Meta / Google)?",
-       o:[{t:"Sim, todo mês",v:100},{t:"Já testei um pouco",v:50,f:"Sem consistência, o algoritmo nunca aprende quem é seu cliente ideal."},{t:"Nunca investi",v:15,f:"Você depende só do orgânico — crescimento lento e imprevisível."}]},
-      {q:"Você sabe quanto custa pra gerar um lead ou cliente pelos anúncios?",
-       o:[{t:"Sei o número certo",v:100},{t:"Tenho uma ideia",v:50,f:"Sem o custo por lead exato, você não sabe se está lucrando ou queimando dinheiro."},{t:"Não faço ideia",v:10,f:"Investir sem medir custo de aquisição é dirigir no escuro — o furo mais caro de todos."}]},
-      {q:"Pra onde o anúncio manda a pessoa?",
-       o:[{t:"Página feita pra converter",v:100},{t:"Direto no WhatsApp",v:55,f:"WhatsApp direto funciona, mas sem página você perde rastreamento e escala."},{t:"Pro perfil do Instagram",v:15,f:"Mandar pro perfil dispersa o clique pago — a pessoa se distrai e não converte."}]}
+      {q:"Você sabe quanto custa pra adquirir um CLIENTE (não um lead)?",
+       o:[
+         {t:"Sei o número exato",v:100},
+         {t:"Sei o custo por lead, o de cliente não",v:45,f:"Custo por lead engana: sem o custo por cliente, você pode estar comemorando lead barato que nunca fecha."},
+         {t:"Não sei",v:10,f:"Sem custo de aquisição, você não tem como saber se está lucrando ou financiando o próprio crescimento no prejuízo."}
+       ]},
+      {q:"Você consegue dizer quanto cada real investido devolveu no último mês?",
+       o:[
+         {t:"Sim, com número na mão",v:100},
+         {t:"Por estimativa",v:45,f:"Estimativa não sustenta decisão de verba — é ela que faz você segurar investimento no canal que estava dando certo."},
+         {t:"Não consigo dizer",v:10,f:"Sem rastreio de retorno, o marketing vira centro de custo na sua cabeça — e a primeira coisa cortada quando aperta."}
+       ]},
+      {q:"Quando o resultado cai, você sabe onde foi o problema?",
+       o:[
+         {t:"Sim, os dados me mostram",v:100},
+         {t:"Descubro no tentativa e erro",v:45,f:"Diagnosticar por tentativa custa semanas de verba até achar a causa — tempo que o concorrente usa pra crescer."},
+         {t:"Só sei que caiu",v:15,f:"Sem enxergar a causa, toda queda vira troca de fornecedor ou de estratégia inteira — quando às vezes era um ajuste pontual."}
+       ]}
     ]
   },
-  social:{
-    icon:"📱", label:"Não sei o que postar / não engaja",
-    service:"Social Media & Conteúdo",
-    desc:"Conteúdo sem estratégia vira esforço perdido. Com uma linha clara, cada post trabalha pra atrair e aquecer cliente — não só juntar curtida.",
+
+  dependencia:{
+    icon:"⚙️", label:"A empresa ainda depende de mim pra vender",
+    service:"Estratégia & Sistema de Aquisição",
+    desc:"Negócio que cresce por esforço tem teto: o seu. A virada é sair de vendas que acontecem porque você empurrou, para um sistema que gera demanda mesmo quando você não está na operação.",
     qs:[
-      {q:"Com que frequência você posta?",
-       o:[{t:"Toda semana, com plano",v:100},{t:"Quando dá tempo",v:50,f:"Postagem irregular faz o alcance despencar e a audiência esquecer de você."},{t:"Quase não posto",v:15,f:"Sem presença constante, você some do feed e da memória do cliente."}]},
-      {q:"Seu conteúdo gera conversa e contato, ou só curtida?",
-       o:[{t:"Gera contato de verdade",v:100},{t:"Só curtida",v:45,f:"Curtida não paga conta — falta conteúdo que puxe a pessoa pra conversa."},{t:"Nem curtida",v:10,f:"Conteúdo que não engaja indica desalinhamento entre o que você fala e o que o público quer."}]},
-      {q:"Você tem uma linha de conteúdo / estratégia definida?",
-       o:[{t:"Sim, bem definida",v:100},{t:"Faço no improviso",v:45,f:"Sem estratégia, cada post começa do zero e nenhum constrói sobre o outro."},{t:"Não tenho",v:15,f:"Postar sem direção é gastar energia sem construir autoridade."}]}
+      {q:"Se você parar 30 dias, o que acontece com o faturamento?",
+       o:[
+         {t:"Segue rodando normalmente",v:100},
+         {t:"Cai, mas não para",v:45,f:"A queda mede o quanto do seu faturamento ainda depende da sua presença — e é esse pedaço que não escala."},
+         {t:"Praticamente para",v:10,f:"Faturamento colado na sua presença significa que você não tem uma empresa crescendo: tem um emprego muito exigente."}
+       ]},
+      {q:"Sua aquisição de cliente é processo ou é indicação e sorte?",
+       o:[
+         {t:"Processo previsível",v:100},
+         {t:"Mistura dos dois",v:50,f:"Depender parcialmente de indicação torna o crescimento irregular — você não consegue acelerar quando quer."},
+         {t:"Quase tudo indicação",v:15,f:"Indicação é ótima, mas não tem acelerador: você não controla o volume nem o momento em que ela chega."}
+       ]},
+      {q:"Você consegue prever o faturamento do mês que vem?",
+       o:[
+         {t:"Com boa margem de acerto",v:100},
+         {t:"Mais ou menos",v:45,f:"Previsibilidade baixa trava as decisões grandes: contratar, investir e assumir compromisso viram risco."},
+         {t:"Nenhuma previsibilidade",v:10,f:"Sem previsão, você administra por reação — e todo mês recomeça a corrida do zero."}
+       ]}
     ]
   },
-  leads:{
-    icon:"🔥", label:"Chegam contatos mas não viram cliente",
-    service:"Qualificação de Leads (Capta)",
-    desc:"O problema não é atrair — é o que acontece depois. Velocidade, follow-up e qualificação são onde a maioria das vendas escorre pelo ralo.",
+
+  processo:{
+    icon:"🕳️", label:"Chega oportunidade e a gente perde por falta de processo",
+    service:"Qualificação & CRM (Capta)",
+    desc:"Aqui o dinheiro já está na porta — e escorre. Velocidade de resposta, follow-up e qualificação são o trecho mais barato de arrumar do funil inteiro, e quase sempre o mais negligenciado.",
     qs:[
-      {q:"Quando chega um contato novo, em quanto tempo você responde?",
-       o:[{t:"Em minutos",v:100},{t:"Em horas",v:50,f:"Responder em horas derruba drasticamente a chance de fechar — lead esfria rápido."},{t:"Dias, ou esqueço",v:10,f:"Demora na resposta é o vazamento nº1: o cliente já fechou com o concorrente."}]},
-      {q:"Você faz follow-up com quem não fechou de primeira?",
-       o:[{t:"Sempre, de forma organizada",v:100},{t:"Às vezes",v:50,f:"A maioria das vendas acontece no follow-up — fazer 'às vezes' deixa muito dinheiro na mesa."},{t:"Nunca",v:10,f:"Sem follow-up, você perde quase todo mundo que não decidiu na hora."}]},
-      {q:"Você separa curioso de quem realmente quer comprar?",
-       o:[{t:"Sim, qualifico os leads",v:100},{t:"Mais ou menos",v:50,f:"Tratar todo lead igual faz você gastar energia com curioso e negligenciar quem ia comprar."},{t:"Não separo",v:15,f:"Sem qualificação, seu time se afoga em contato frio e perde o lead quente."}]}
+      {q:"Quanto tempo leva até um interessado ser respondido?",
+       o:[
+         {t:"Minutos, sempre",v:100},
+         {t:"Algumas horas",v:50,f:"O interesse tem prazo de validade curto: em poucas horas a pessoa já falou com outros dois fornecedores."},
+         {t:"Varia muito / às vezes escapa",v:10,f:"Resposta inconsistente é vazamento invisível — você paga pra gerar a oportunidade e a perde por atraso."}
+       ]},
+      {q:"Você sabe quantas oportunidades perdeu no último mês — e por quê?",
+       o:[
+         {t:"Sei, tenho registro",v:100},
+         {t:"Tenho uma noção",v:45,f:"Sem registro do que foi perdido, você não consegue corrigir a causa: ela se repete todo mês no mesmo ponto."},
+         {t:"Não tenho como saber",v:10,f:"O que não é registrado não é gerenciado — perda invisível não entra em nenhuma decisão sua."}
+       ]},
+      {q:"Seu follow-up depende de alguém lembrar de fazer?",
+       o:[
+         {t:"Não, é sistematizado",v:100},
+         {t:"Em parte",v:50,f:"Follow-up que depende de memória falha justamente na semana cheia — quando há mais oportunidade em jogo."},
+         {t:"Sim, depende de lembrar",v:15,f:"A maior parte das vendas acontece depois do primeiro contato. Sem sistema, você entrega esse pedaço pro acaso."}
+       ]}
     ]
   }
+
 };
 
 let state={path:null,answers:[],step:0,furos:[],detalhe:[]};
