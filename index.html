@@ -236,7 +236,7 @@ const WA_NUMBER = "5592991755756";
 const CAPTA = {
   url:    'https://wpoeigoledhzyvomudgf.supabase.co',
   key:    'sb_publishable_S4eWNjOtaiXTo5sr9Hek0A_42NzE4jf',
-  slug:   'rise',        // negócio da RISE dentro do Capta (criar no admin com este slug)
+  slug:   'rise',        // negócio da RISE dentro do Capta
   origem: 'dsx-2026'
 };
 let CAPTA_TENANT = null;
@@ -523,7 +523,7 @@ function setProg(current,total){
 
 function finish(){
   const nome=document.getElementById('nome').value.trim();
-  const wpp=document.getElementById('wpp').value.replace(/\D/g,'');
+  let wpp=document.getElementById('wpp').value.replace(/\D/g,'');
   const email=document.getElementById('email').value.trim();
   let ok=true;
   document.getElementById('errNome').classList.toggle('show', !nome); if(!nome) ok=false;
@@ -533,6 +533,9 @@ function finish(){
   const emailOk = !email || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
   document.getElementById('errEmail').classList.toggle('show', !emailOk); if(!emailOk) ok=false;
   if(!ok) return;
+
+  // normaliza pro formato do WhatsApp (55 + DDD + número) — sem isso o link do painel não abre
+  if(wpp.length<=11) wpp='55'+wpp;
 
   const score=Math.round(state.answers.reduce((a,b)=>a+b,0)/state.answers.length);
   renderResult(score, nome);
