@@ -101,6 +101,7 @@
   /* form */
   .field{margin-bottom:14px}
   .field label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px}
+  .field label i{font-style:normal;font-weight:500;color:var(--mut)}
   .field input{
     width:100%;background:var(--panel);border:1px solid var(--line);border-radius:13px;
     color:var(--ink);font-family:inherit;font-size:16px;padding:14px 15px;transition:border-color .18s;
@@ -186,9 +187,14 @@
         <input id="wpp" type="tel" placeholder="(92) 9 0000-0000" autocomplete="tel" inputmode="tel">
         <div class="err" id="errWpp">Coloca um WhatsApp válido com DDD.</div>
       </div>
+      <div class="field">
+        <label for="email">E-mail <i>(opcional)</i></label>
+        <input id="email" type="email" placeholder="voce@empresa.com.br" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false">
+        <div class="err" id="errEmail">Esse e-mail parece inválido — corrige ou deixa em branco.</div>
+      </div>
       <label class="consent">
         <input type="checkbox" id="consent" checked>
-        <span>Quero receber meu <b>diagnóstico completo</b> e uma condição especial da RISE pelo WhatsApp.</span>
+        <span>Quero receber meu <b>diagnóstico completo</b> e uma condição especial da RISE por WhatsApp e e-mail.</span>
       </label>
       <button class="cta" onclick="finish()">Ver meu resultado →</button>
     </section>
@@ -254,17 +260,24 @@ function montaRespostas(){
 }
 
 // grava SEM .select() (com select, o banco cancela o insert quando não há permissão de leitura)
+// se a coluna "email" não existir no capta_leads, reenvia sem ela — o e-mail continua nas notas
 async function enviaCapta(payload){
-  for(let i = 1; i <= 3; i++){
+  let corpo = payload;
+  for(let i = 1; i <= 4; i++){
     try{
       const r = await fetch(`${CAPTA.url}/rest/v1/capta_leads`, {
         method: 'POST',
         headers: { apikey: CAPTA.key, Authorization: 'Bearer ' + CAPTA.key,
                    'Content-Type': 'application/json', Prefer: 'return=minimal' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(corpo)
       });
       if(r.ok) return true;
-      console.warn('Capta respondeu', r.status, await r.text());
+      const txt = await r.text();
+      console.warn('Capta respondeu', r.status, txt);
+      if(r.status === 400 && /email/i.test(txt) && corpo.email !== undefined){
+        corpo = Object.assign({}, corpo); delete corpo.email;
+        continue;   // tenta de novo na hora, sem a coluna que o banco não tem
+      }
     }catch(e){ console.warn('Capta falhou:', e.message); }
     await new Promise(res => setTimeout(res, 700 * i));
   }
@@ -278,7 +291,7 @@ function guardaPendente(p){
   }catch(e){}
 }
 
-async function salvarNoCapta({ nome, whatsapp, score }){
+async function salvarNoCapta({ nome, whatsapp, email, score }){
   const p = PATHS[state.path] || {};
   const payload = {
     nome,
@@ -286,8 +299,11 @@ async function salvarNoCapta({ nome, whatsapp, score }){
     origem: CAPTA.origem,
     respostas: montaRespostas(),
     notas: `Raio-X 360: ${score}/100 · Dor: ${p.label || '—'} · Indicado: ${p.service || '—'}`
+      + (email ? `\nE-mail: ${email}` : '')
       + ((state.furos && state.furos.length) ? '\n• ' + state.furos.slice(0,3).join('\n• ') : '')
   };
+  if(email) payload.email = email;   // só manda a coluna quando a pessoa preencheu
+
   try{
     const tid = await captaTenantId();
     if(!tid) throw new Error('negócio "' + CAPTA.slug + '" não encontrado no Capta');
@@ -508,16 +524,20 @@ function setProg(current,total){
 function finish(){
   const nome=document.getElementById('nome').value.trim();
   const wpp=document.getElementById('wpp').value.replace(/\D/g,'');
+  const email=document.getElementById('email').value.trim();
   let ok=true;
   document.getElementById('errNome').classList.toggle('show', !nome); if(!nome) ok=false;
   const wppOk = wpp.length>=10;
   document.getElementById('errWpp').classList.toggle('show', !wppOk); if(!wppOk) ok=false;
+  // e-mail é opcional: só valida se a pessoa digitou alguma coisa
+  const emailOk = !email || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+  document.getElementById('errEmail').classList.toggle('show', !emailOk); if(!emailOk) ok=false;
   if(!ok) return;
 
   const score=Math.round(state.answers.reduce((a,b)=>a+b,0)/state.answers.length);
   renderResult(score, nome);
   show('s-result');
-  salvarNoCapta({ nome, whatsapp: wpp, score });   // grava no painel do Capta (não trava a tela)
+  salvarNoCapta({ nome, whatsapp: wpp, email, score });   // grava no painel do Capta (não trava a tela)
 }
 
 function renderResult(score, nome){
@@ -560,7 +580,7 @@ function animateNum(el,target){
 
 function restart(){
   state={path:null,answers:[],step:0,furos:[],detalhe:[]};
-  document.getElementById('nome').value=''; document.getElementById('wpp').value='';
+  document.getElementById('nome').value=''; document.getElementById('wpp').value=''; document.getElementById('email').value='';
   document.getElementById('gArc').style.strokeDashoffset=540;
   show('s-intro');
 }
