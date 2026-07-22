@@ -1,142 +1,497 @@
-// ============================================================
-// RAIO-X 360 — trilhas recalibradas para o público do DSX
-// Substitui o objeto PATHS inteiro no index.html
-//
-// Mudança de lógica: as perguntas não checam mais SE a pessoa tem
-// (site, anúncio, post). Checam SE FUNCIONA e SE ELA SABE O NÚMERO.
-// Assim quem já é avançado também trava em alguma — que é onde a RISE entra.
-// ============================================================
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Raio-X 360 — RISE no DSX</title>
+<meta name="description" content="Descubra em 90 segundos o maior furo que trava o crescimento do seu negócio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#100C09;
+    --bg2:#171009;
+    --panel:#1E1611;
+    --panel2:#251C15;
+    --line:#33261C;
+    --orange:#FF5A1F;
+    --orange-hi:#FF8A4C;
+    --ink:#F6F1EA;
+    --mut:#A99C8F;
+    --hot:#FF5A1F;
+    --warm:#F4B740;
+    --cold:#5AA9E6;
+    --ok:#38D39F;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:radial-gradient(120% 90% at 50% -10%, #22160D 0%, var(--bg) 55%) fixed;
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100dvh;
+    display:flex;
+    justify-content:center;
+  }
+  .app{
+    width:100%;max-width:440px;min-height:100dvh;
+    display:flex;flex-direction:column;
+    padding:20px 20px calc(20px + env(safe-area-inset-bottom));
+    position:relative;
+  }
+  .brandbar{display:flex;align-items:center;gap:10px;padding:4px 2px 0}
+  .logo{
+    font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;letter-spacing:-.03em;
+    color:var(--ink);display:flex;align-items:center;gap:8px;
+  }
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--orange);box-shadow:0 0 14px var(--orange)}
+  .tag{margin-left:auto;font-size:11px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-weight:500}
+
+  .stage{flex:1;display:flex;flex-direction:column;justify-content:center;padding:14px 0}
+  .screen{display:none;animation:rise .45s cubic-bezier(.2,.7,.2,1)}
+  .screen.on{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:16px}
+  h1{font-family:'Bricolage Grotesque';font-weight:800;font-size:34px;line-height:1.05;letter-spacing:-.03em;margin-bottom:14px}
+  h1 em{font-style:normal;color:var(--orange)}
+  .lead{color:var(--mut);font-size:15.5px;line-height:1.55;margin-bottom:8px}
+  .fineprint{color:#7d7266;font-size:12.5px;line-height:1.5;margin-top:18px}
+
+  .qhead{font-family:'Bricolage Grotesque';font-weight:700;font-size:24px;line-height:1.12;letter-spacing:-.02em;margin:6px 0 20px}
+  .qhead em{font-style:normal;color:var(--orange)}
+
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{
+    text-align:left;width:100%;cursor:pointer;
+    background:var(--panel);border:1px solid var(--line);border-radius:15px;
+    color:var(--ink);font-family:inherit;font-size:15px;font-weight:500;line-height:1.3;
+    padding:16px 16px;display:flex;align-items:center;gap:13px;
+    transition:transform .12s,border-color .18s,background .18s;
+  }
+  .opt:hover,.opt:focus-visible{border-color:var(--orange);background:var(--panel2);outline:none}
+  .opt:active{transform:scale(.985)}
+  .opt .ic{flex:0 0 26px;height:26px;border-radius:8px;background:var(--bg2);border:1px solid var(--line);
+    display:grid;place-items:center;font-size:15px}
+  .opt.sel{border-color:var(--orange);background:linear-gradient(180deg,rgba(255,90,31,.14),rgba(255,90,31,.04))}
+
+  .cta{
+    display:flex;align-items:center;justify-content:center;gap:9px;width:100%;cursor:pointer;
+    background:var(--orange);color:#160a03;border:none;border-radius:14px;
+    font-family:'Bricolage Grotesque';font-weight:700;font-size:17px;letter-spacing:-.01em;
+    padding:16px;margin-top:22px;transition:transform .12s,box-shadow .2s,filter .2s;
+    box-shadow:0 10px 30px -10px rgba(255,90,31,.6);
+  }
+  .cta:hover{filter:brightness(1.05);box-shadow:0 14px 34px -8px rgba(255,90,31,.7)}
+  .cta:active{transform:translateY(1px)}
+  .cta.ghost{background:transparent;color:var(--mut);box-shadow:none;font-size:14px;font-weight:600;margin-top:14px;padding:10px}
+  .cta.wa{background:#25D366;color:#053b1a}
+  .cta.wa:hover{box-shadow:0 14px 34px -8px rgba(37,211,102,.6)}
+
+  /* progress */
+  .prog{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .bar{flex:1;height:7px;background:var(--panel);border-radius:99px;overflow:hidden}
+  .bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--orange-hi));border-radius:99px;transition:width .4s cubic-bezier(.2,.7,.2,1)}
+  .prog span{font-size:12px;color:var(--mut);font-weight:600;font-variant-numeric:tabular-nums;min-width:36px;text-align:right}
+
+  /* form */
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px}
+  .field input{
+    width:100%;background:var(--panel);border:1px solid var(--line);border-radius:13px;
+    color:var(--ink);font-family:inherit;font-size:16px;padding:14px 15px;transition:border-color .18s;
+  }
+  .field input:focus{outline:none;border-color:var(--orange)}
+  .field input::placeholder{color:#6f6458}
+  .consent{display:flex;gap:11px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);
+    border-radius:13px;padding:14px;cursor:pointer;margin-top:4px}
+  .consent input{margin-top:2px;width:18px;height:18px;accent-color:var(--orange);flex:0 0 auto}
+  .consent span{font-size:13px;color:var(--mut);line-height:1.45}
+  .consent b{color:var(--ink);font-weight:600}
+  .err{color:#ff7a5c;font-size:12.5px;margin-top:6px;display:none}
+  .err.show{display:block}
+
+  /* result */
+  .gaugewrap{display:flex;flex-direction:column;align-items:center;margin:4px 0 6px}
+  .gauge{position:relative;width:196px;height:196px}
+  .gauge svg{transform:rotate(-90deg)}
+  .gnum{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .gnum .val{font-family:'Bricolage Grotesque';font-weight:800;font-size:56px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .gnum .of{font-size:12px;color:var(--mut);margin-top:4px;letter-spacing:.05em}
+  .temp{display:inline-flex;align-items:center;gap:8px;font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;
+    padding:8px 15px;border-radius:999px;margin:14px auto 0}
+  .rlabel{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:24px 0 8px}
+  .rhead{font-family:'Bricolage Grotesque';font-weight:800;font-size:23px;line-height:1.12;letter-spacing:-.02em;margin-bottom:6px}
+  .rhead em{font-style:normal;color:var(--orange)}
+  .rdesc{color:var(--mut);font-size:14.5px;line-height:1.55;margin-bottom:16px}
+  .furos{display:flex;flex-direction:column;gap:9px;margin-bottom:6px}
+  .furo{display:flex;gap:11px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);
+    border-left:3px solid var(--orange);border-radius:11px;padding:13px 14px;font-size:13.5px;line-height:1.45}
+  .furo .fx{color:var(--orange);font-weight:800;flex:0 0 auto}
+  .booth{margin-top:18px;background:linear-gradient(180deg,rgba(255,90,31,.12),transparent);
+    border:1px dashed var(--orange);border-radius:14px;padding:15px;font-size:14px;line-height:1.5}
+  .booth b{color:var(--orange)}
+
+  .demoflag{text-align:center;font-size:11.5px;color:#6b6053;padding:14px 0 2px;letter-spacing:.03em}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="brandbar">
+    <div class="logo"><span class="dot"></span>RISE</div>
+    <div class="tag">Raio-X 360 · 90s</div>
+  </div>
+
+  <div class="stage">
+
+    <!-- INTRO -->
+    <section class="screen on" id="s-intro">
+      <div class="eyebrow">Diagnóstico gratuito</div>
+      <h1>Onde está o <em>furo</em> que trava o crescimento do seu negócio?</h1>
+      <p class="lead">Responde 4 perguntas rápidas. Na hora, você descobre seu ponto mais fraco — e o primeiro passo pra corrigir.</p>
+      <button class="cta" onclick="go('router')">Começar meu raio-x →</button>
+      <p class="fineprint">Feito pela RISE · Design, sites, tráfego e marca que dão resultado. Seus dados ficam só com a gente.</p>
+    </section>
+
+    <!-- ROUTER -->
+    <section class="screen" id="s-router">
+      <div class="prog"><div class="bar"><i id="pbar"></i></div><span id="pnum">1/4</span></div>
+      <h2 class="qhead">Pra começar: o que <em>mais trava</em> seu negócio hoje?</h2>
+      <div class="opts" id="routerOpts"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="screen" id="s-quiz">
+      <div class="prog"><div class="bar"><i id="pbar2"></i></div><span id="pnum2">2/4</span></div>
+      <h2 class="qhead" id="qText"></h2>
+      <div class="opts" id="quizOpts"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="screen" id="s-contact">
+      <div class="prog"><div class="bar"><i style="width:92%"></i></div><span>quase</span></div>
+      <div class="eyebrow">Último passo</div>
+      <h2 class="qhead">Pronto! Pra onde mando seu <em>resultado</em>?</h2>
+      <div class="field">
+        <label for="nome">Seu nome</label>
+        <input id="nome" type="text" placeholder="Como te chamam?" autocomplete="name">
+        <div class="err" id="errNome">Coloca seu nome pra continuar.</div>
+      </div>
+      <div class="field">
+        <label for="wpp">WhatsApp</label>
+        <input id="wpp" type="tel" placeholder="(92) 9 0000-0000" autocomplete="tel" inputmode="tel">
+        <div class="err" id="errWpp">Coloca um WhatsApp válido com DDD.</div>
+      </div>
+      <label class="consent">
+        <input type="checkbox" id="consent" checked>
+        <span>Quero receber meu <b>diagnóstico completo</b> e uma condição especial da RISE pelo WhatsApp.</span>
+      </label>
+      <button class="cta" onclick="finish()">Ver meu resultado →</button>
+    </section>
+
+    <!-- RESULT -->
+    <section class="screen" id="s-result">
+      <div class="gaugewrap">
+        <div class="gauge">
+          <svg width="196" height="196" viewBox="0 0 196 196">
+            <circle cx="98" cy="98" r="86" fill="none" stroke="#251C15" stroke-width="16"/>
+            <circle id="gArc" cx="98" cy="98" r="86" fill="none" stroke="var(--orange)" stroke-width="16"
+              stroke-linecap="round" stroke-dasharray="540" stroke-dashoffset="540"/>
+          </svg>
+          <div class="gnum"><div class="val" id="gVal">0</div><div class="of">de 100</div></div>
+        </div>
+        <div class="temp" id="tempBadge"></div>
+      </div>
+
+      <div class="rlabel">Sua maior oportunidade</div>
+      <h3 class="rhead" id="rHead"></h3>
+      <p class="rdesc" id="rDesc"></p>
+      <div class="furos" id="rFuros"></div>
+
+      <div class="booth">📍 Tá no DSX? <b>Chama a gente agora mesmo</b> — a gente se encontra no evento e monta seu plano de ação na hora.</div>
+
+      <button class="cta wa" id="waBtn">Falar com a RISE no WhatsApp →</button>
+      <button class="cta ghost" onclick="restart()">↺ Refazer o raio-x</button>
+    </section>
+
+  </div>
+
+  <div class="demoflag">⚙ Modo demonstração — nada é salvo. Origem: dsx-2026</div>
+</div>
+
+<script>
+const WA_NUMBER = "5592991755756";
+
+/* ===================== CAPTA — envia o lead pro painel ===================== */
+const CAPTA = {
+  url:    'https://wpoeigoledhzyvomudgf.supabase.co',
+  key:    'sb_publishable_S4eWNjOtaiXTo5sr9Hek0A_42NzE4jf',
+  slug:   'rise',        // negócio da RISE dentro do Capta (criar no admin com este slug)
+  origem: 'dsx-2026'
+};
+let CAPTA_TENANT = null;
+
+async function captaTenantId(){
+  if(CAPTA_TENANT) return CAPTA_TENANT;
+  const r = await fetch(`${CAPTA.url}/rest/v1/capta_tenants?slug=eq.${encodeURIComponent(CAPTA.slug)}&select=id&limit=1`,
+    { headers:{ apikey: CAPTA.key, Authorization: 'Bearer ' + CAPTA.key } });
+  const d = await r.json();
+  if(Array.isArray(d) && d[0]) CAPTA_TENANT = d[0].id;
+  return CAPTA_TENANT;
+}
+
+// resposta forte = negócio já resolvido (pouca oportunidade) · resposta fraca = mais quente pra RISE
+function pontosDe(v){ return v >= 100 ? 0 : v >= 50 ? 2 : 3; }
+
+function montaRespostas(){
+  const out = {};
+  (state.detalhe || []).forEach((d, i) => { out['q' + (i+1)] = { label: d.t, pontos: pontosDe(d.v) }; });
+  return out;
+}
+
+// grava SEM .select() (com select, o banco cancela o insert quando não há permissão de leitura)
+async function enviaCapta(payload){
+  for(let i = 1; i <= 3; i++){
+    try{
+      const r = await fetch(`${CAPTA.url}/rest/v1/capta_leads`, {
+        method: 'POST',
+        headers: { apikey: CAPTA.key, Authorization: 'Bearer ' + CAPTA.key,
+                   'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify(payload)
+      });
+      if(r.ok) return true;
+      console.warn('Capta respondeu', r.status, await r.text());
+    }catch(e){ console.warn('Capta falhou:', e.message); }
+    await new Promise(res => setTimeout(res, 700 * i));
+  }
+  return false;
+}
+
+function guardaPendente(p){
+  try{
+    const f = JSON.parse(localStorage.getItem('raiox_pendentes') || '[]');
+    f.push(p); localStorage.setItem('raiox_pendentes', JSON.stringify(f));
+  }catch(e){}
+}
+
+async function salvarNoCapta({ nome, whatsapp, score }){
+  const p = PATHS[state.path] || {};
+  const payload = {
+    nome,
+    contato: whatsapp,
+    origem: CAPTA.origem,
+    respostas: montaRespostas(),
+    notas: `Raio-X 360: ${score}/100 · Dor: ${p.label || '—'} · Indicado: ${p.service || '—'}`
+      + ((state.furos && state.furos.length) ? '\n• ' + state.furos.slice(0,3).join('\n• ') : '')
+  };
+  try{
+    const tid = await captaTenantId();
+    if(!tid) throw new Error('negócio "' + CAPTA.slug + '" não encontrado no Capta');
+    payload.tenant_id = tid;
+  }catch(e){ console.warn(e.message); guardaPendente(payload); return false; }
+
+  const ok = await enviaCapta(payload);
+  if(!ok) guardaPendente(payload);
+  return ok;
+}
+
+// se o wifi do evento falhar, o próximo acesso reenvia o que ficou preso
+async function flushPendentes(){
+  let f = [];
+  try{ f = JSON.parse(localStorage.getItem('raiox_pendentes') || '[]'); }catch(e){ return; }
+  if(!f.length) return;
+  const sobrou = [];
+  for(const p of f){
+    if(!p.tenant_id){ try{ p.tenant_id = await captaTenantId(); }catch(e){} }
+    const ok = p.tenant_id ? await enviaCapta(p) : false;
+    if(!ok) sobrou.push(p);
+  }
+  try{ localStorage.setItem('raiox_pendentes', JSON.stringify(sobrou)); }catch(e){}
+}
+flushPendentes();
+/* ========================================================================= */
 
 const PATHS = {
-
   marca:{
-    icon:"👑", label:"Minha marca não sustenta o preço que quero cobrar",
-    service:"Posicionamento & Identidade",
-    desc:"Preço é consequência de percepção. Quando a marca não comunica o nível do que você entrega, você passa a competir por desconto — e margem vira o seu gargalo, não a demanda.",
+    icon:"🎯", label:"Minha marca não passa a imagem certa",
+    service:"Identidade Visual & Branding",
+    desc:"Sua marca é a primeira impressão — e hoje ela não está trabalhando a seu favor. Uma identidade sólida faz o cliente confiar antes mesmo de você falar preço.",
     qs:[
-      {q:"Quando você aumenta o preço, o cliente aceita ou questiona?",
-       o:[
-         {t:"Aceita — ele percebe o valor",v:100},
-         {t:"Questiona bastante",v:50,f:"Seu preço é discutido porque o valor não está evidente antes da conversa — a marca não está fazendo esse trabalho por você."},
-         {t:"Perco venda por preço",v:10,f:"Perder por preço é sintoma de posicionamento: sem diferenciação clara, o cliente só tem o número pra comparar."}
-       ]},
-      {q:"Quando alguém precisa do que você vende, sua marca vem à cabeça?",
-       o:[
-         {t:"Sim, sou referência no meu nicho",v:100},
-         {t:"Só quem já me conhece lembra",v:50,f:"Você depende de quem já te conhece — sem lembrança de marca, cada venda nova começa do zero."},
-         {t:"Disputo atenção com todo mundo",v:15,f:"Sem território próprio na cabeça do cliente, você concorre no mesmo balcão que todo mundo e o critério vira preço."}
-       ]},
-      {q:"Sua comunicação atrai o cliente que você quer — ou o que aparece?",
-       o:[
-         {t:"O perfil que eu quero",v:100},
-         {t:"Vem de tudo um pouco",v:45,f:"Atrair todo mundo custa caro: seu time gasta tempo com quem nunca ia fechar no seu ticket."},
-         {t:"Atraio muito perfil errado",v:10,f:"Comunicação desalinhada filtra ao contrário — traz volume errado e afasta quem pagaria mais."}
-       ]}
+      {q:"Sua marca tem identidade visual profissional (logo, cores e tipografia definidos)?",
+       o:[{t:"Sim, completa e consistente",v:100},{t:"Tenho só um logo",v:50,f:"Você tem logo, mas não um sistema de marca — falta o que sustenta a identidade em todos os pontos."},{t:"É meio improvisado",v:10,f:"Sem identidade definida, cada material fala uma língua e a marca não fixa na cabeça do cliente."}]},
+      {q:"Quando alguém vê seu perfil, entende na hora o que você faz e pra quem?",
+       o:[{t:"Totalmente claro",v:100},{t:"Mais ou menos",v:50,f:"A proposta não está clara em segundos — e no digital, segundos é tudo que você tem."},{t:"Não, confunde",v:10,f:"Se a pessoa não entende o que você faz, ela rola pra baixo e some."}]},
+      {q:"Sua comunicação é consistente entre Instagram, site e materiais?",
+       o:[{t:"Sim, tudo alinhado",v:100},{t:"Varia bastante",v:50,f:"A inconsistência entre canais faz a marca parecer menor do que ela é."},{t:"Cada um é de um jeito",v:10,f:"Marcas dispersas passam amadorismo — mesmo quando o serviço é excelente."}]}
     ]
   },
-
   site:{
-    icon:"📉", label:"Meu site recebe visita mas não converte",
-    service:"Sites & Conversão",
-    desc:"Todo investimento que você faz — anúncio, conteúdo, indicação — desemboca no mesmo lugar. Se a conversão ali é baixa, você não tem problema de topo de funil: tem um vazamento no fundo.",
+    icon:"🌐", label:"Meu site / presença digital é fraco",
+    service:"Sites & Presença Digital",
+    desc:"No fim, tráfego, indicação e anúncio caem todos no mesmo lugar: seu site. Se ele não converte, tudo que vem antes vira desperdício.",
     qs:[
-      {q:"Você sabe qual percentual de quem visita seu site vira contato?",
-       o:[
-         {t:"Sei o número",v:100},
-         {t:"Tenho uma ideia aproximada",v:45,f:"Sem a taxa de conversão real, você não sabe se o problema é atrair mais gente ou converter melhor a que já chega."},
-         {t:"Não meço isso",v:10,f:"Sem medir conversão, todo aumento de investimento amplia o vazamento junto — você paga mais caro pelo mesmo resultado."}
-       ]},
-      {q:"Seu site foi construído pra vender ou pra existir?",
-       o:[
-         {t:"Pra converter — e a gente testa",v:100},
-         {t:"É bonito, mas institucional",v:45,f:"Site institucional informa, não vende. Ele apresenta a empresa e deixa a decisão por conta do visitante."},
-         {t:"Foi feito uma vez e nunca mais mexido",v:15,f:"Site parado é ativo depreciando: o mercado mudou, a oferta mudou, e a página continua na versão antiga do seu negócio."}
-       ]},
-      {q:"Quem chega decidido a comprar, quantos passos leva pra falar com você?",
-       o:[
-         {t:"Um ou dois, direto",v:100},
-         {t:"Três ou quatro",v:50,f:"Cada passo a mais derruba uma fatia de quem já estava decidido — a fricção cobra caro justamente do lead quente."},
-         {t:"Precisa procurar",v:10,f:"Se o cliente decidido precisa procurar como falar com você, você está perdendo a venda mais fácil que tinha."}
-       ]}
+      {q:"Você tem um site próprio (não só o Instagram)?",
+       o:[{t:"Sim, atualizado",v:100},{t:"Tenho, mas está velho",v:50,f:"Um site desatualizado derruba confiança e ranqueia mal no Google."},{t:"Não tenho",v:10,f:"Sem site, você depende 100% do Instagram — um canal que não é seu e pode cair a qualquer momento."}]},
+      {q:"Quem chega no seu site consegue entrar em contato ou comprar fácil?",
+       o:[{t:"Sim, é bem claro",v:100},{t:"Dá pra melhorar",v:50,f:"Caminho de conversão confuso: a pessoa quer, mas não acha onde clicar."},{t:"Não sei / é difícil",v:10,f:"Se comprar/falar contigo dá trabalho, o cliente desiste antes de tentar."}]},
+      {q:"Seu site abre rápido e funciona bem no celular?",
+       o:[{t:"Sim, é leve",v:100},{t:"Mais ou menos",v:50,f:"Cada segundo de carregamento a mais derruba uma fatia dos visitantes."},{t:"É lento / não sei",v:10,f:"Site lento no celular = maioria do seu público indo embora antes de ver a oferta."}]}
     ]
   },
-
   trafego:{
-    icon:"💸", label:"Invisto em marketing, mas não sei o retorno real",
+    icon:"🚀", label:"Invisto em anúncio mas não vem retorno",
     service:"Tráfego Pago & Performance",
-    desc:"A diferença entre gastar e investir é um número: quanto volta. Sem ele, cada decisão de verba é aposta — e você não consegue escalar o que funciona nem cortar o que não funciona.",
+    desc:"Anúncio não é sobre gastar mais — é sobre para onde manda, o que mede e como converte. Ajustando isso, o mesmo orçamento rende muito mais.",
     qs:[
-      {q:"Você sabe quanto custa pra adquirir um CLIENTE (não um lead)?",
-       o:[
-         {t:"Sei o número exato",v:100},
-         {t:"Sei o custo por lead, o de cliente não",v:45,f:"Custo por lead engana: sem o custo por cliente, você pode estar comemorando lead barato que nunca fecha."},
-         {t:"Não sei",v:10,f:"Sem custo de aquisição, você não tem como saber se está lucrando ou financiando o próprio crescimento no prejuízo."}
-       ]},
-      {q:"Você consegue dizer quanto cada real investido devolveu no último mês?",
-       o:[
-         {t:"Sim, com número na mão",v:100},
-         {t:"Por estimativa",v:45,f:"Estimativa não sustenta decisão de verba — é ela que faz você segurar investimento no canal que estava dando certo."},
-         {t:"Não consigo dizer",v:10,f:"Sem rastreio de retorno, o marketing vira centro de custo na sua cabeça — e a primeira coisa cortada quando aperta."}
-       ]},
-      {q:"Quando o resultado cai, você sabe onde foi o problema?",
-       o:[
-         {t:"Sim, os dados me mostram",v:100},
-         {t:"Descubro no tentativa e erro",v:45,f:"Diagnosticar por tentativa custa semanas de verba até achar a causa — tempo que o concorrente usa pra crescer."},
-         {t:"Só sei que caiu",v:15,f:"Sem enxergar a causa, toda queda vira troca de fornecedor ou de estratégia inteira — quando às vezes era um ajuste pontual."}
-       ]}
+      {q:"Você já investe em anúncios (Meta / Google)?",
+       o:[{t:"Sim, todo mês",v:100},{t:"Já testei um pouco",v:50,f:"Sem consistência, o algoritmo nunca aprende quem é seu cliente ideal."},{t:"Nunca investi",v:15,f:"Você depende só do orgânico — crescimento lento e imprevisível."}]},
+      {q:"Você sabe quanto custa pra gerar um lead ou cliente pelos anúncios?",
+       o:[{t:"Sei o número certo",v:100},{t:"Tenho uma ideia",v:50,f:"Sem o custo por lead exato, você não sabe se está lucrando ou queimando dinheiro."},{t:"Não faço ideia",v:10,f:"Investir sem medir custo de aquisição é dirigir no escuro — o furo mais caro de todos."}]},
+      {q:"Pra onde o anúncio manda a pessoa?",
+       o:[{t:"Página feita pra converter",v:100},{t:"Direto no WhatsApp",v:55,f:"WhatsApp direto funciona, mas sem página você perde rastreamento e escala."},{t:"Pro perfil do Instagram",v:15,f:"Mandar pro perfil dispersa o clique pago — a pessoa se distrai e não converte."}]}
     ]
   },
-
-  dependencia:{
-    icon:"⚙️", label:"A empresa ainda depende de mim pra vender",
-    service:"Estratégia & Sistema de Aquisição",
-    desc:"Negócio que cresce por esforço tem teto: o seu. A virada é sair de vendas que acontecem porque você empurrou, para um sistema que gera demanda mesmo quando você não está na operação.",
+  social:{
+    icon:"📱", label:"Não sei o que postar / não engaja",
+    service:"Social Media & Conteúdo",
+    desc:"Conteúdo sem estratégia vira esforço perdido. Com uma linha clara, cada post trabalha pra atrair e aquecer cliente — não só juntar curtida.",
     qs:[
-      {q:"Se você parar 30 dias, o que acontece com o faturamento?",
-       o:[
-         {t:"Segue rodando normalmente",v:100},
-         {t:"Cai, mas não para",v:45,f:"A queda mede o quanto do seu faturamento ainda depende da sua presença — e é esse pedaço que não escala."},
-         {t:"Praticamente para",v:10,f:"Faturamento colado na sua presença significa que você não tem uma empresa crescendo: tem um emprego muito exigente."}
-       ]},
-      {q:"Sua aquisição de cliente é processo ou é indicação e sorte?",
-       o:[
-         {t:"Processo previsível",v:100},
-         {t:"Mistura dos dois",v:50,f:"Depender parcialmente de indicação torna o crescimento irregular — você não consegue acelerar quando quer."},
-         {t:"Quase tudo indicação",v:15,f:"Indicação é ótima, mas não tem acelerador: você não controla o volume nem o momento em que ela chega."}
-       ]},
-      {q:"Você consegue prever o faturamento do mês que vem?",
-       o:[
-         {t:"Com boa margem de acerto",v:100},
-         {t:"Mais ou menos",v:45,f:"Previsibilidade baixa trava as decisões grandes: contratar, investir e assumir compromisso viram risco."},
-         {t:"Nenhuma previsibilidade",v:10,f:"Sem previsão, você administra por reação — e todo mês recomeça a corrida do zero."}
-       ]}
+      {q:"Com que frequência você posta?",
+       o:[{t:"Toda semana, com plano",v:100},{t:"Quando dá tempo",v:50,f:"Postagem irregular faz o alcance despencar e a audiência esquecer de você."},{t:"Quase não posto",v:15,f:"Sem presença constante, você some do feed e da memória do cliente."}]},
+      {q:"Seu conteúdo gera conversa e contato, ou só curtida?",
+       o:[{t:"Gera contato de verdade",v:100},{t:"Só curtida",v:45,f:"Curtida não paga conta — falta conteúdo que puxe a pessoa pra conversa."},{t:"Nem curtida",v:10,f:"Conteúdo que não engaja indica desalinhamento entre o que você fala e o que o público quer."}]},
+      {q:"Você tem uma linha de conteúdo / estratégia definida?",
+       o:[{t:"Sim, bem definida",v:100},{t:"Faço no improviso",v:45,f:"Sem estratégia, cada post começa do zero e nenhum constrói sobre o outro."},{t:"Não tenho",v:15,f:"Postar sem direção é gastar energia sem construir autoridade."}]}
     ]
   },
-
-  processo:{
-    icon:"🕳️", label:"Chega oportunidade e a gente perde por falta de processo",
-    service:"Qualificação & CRM (Capta)",
-    desc:"Aqui o dinheiro já está na porta — e escorre. Velocidade de resposta, follow-up e qualificação são o trecho mais barato de arrumar do funil inteiro, e quase sempre o mais negligenciado.",
+  leads:{
+    icon:"🔥", label:"Chegam contatos mas não viram cliente",
+    service:"Qualificação de Leads (Capta)",
+    desc:"O problema não é atrair — é o que acontece depois. Velocidade, follow-up e qualificação são onde a maioria das vendas escorre pelo ralo.",
     qs:[
-      {q:"Quanto tempo leva até um interessado ser respondido?",
-       o:[
-         {t:"Minutos, sempre",v:100},
-         {t:"Algumas horas",v:50,f:"O interesse tem prazo de validade curto: em poucas horas a pessoa já falou com outros dois fornecedores."},
-         {t:"Varia muito / às vezes escapa",v:10,f:"Resposta inconsistente é vazamento invisível — você paga pra gerar a oportunidade e a perde por atraso."}
-       ]},
-      {q:"Você sabe quantas oportunidades perdeu no último mês — e por quê?",
-       o:[
-         {t:"Sei, tenho registro",v:100},
-         {t:"Tenho uma noção",v:45,f:"Sem registro do que foi perdido, você não consegue corrigir a causa: ela se repete todo mês no mesmo ponto."},
-         {t:"Não tenho como saber",v:10,f:"O que não é registrado não é gerenciado — perda invisível não entra em nenhuma decisão sua."}
-       ]},
-      {q:"Seu follow-up depende de alguém lembrar de fazer?",
-       o:[
-         {t:"Não, é sistematizado",v:100},
-         {t:"Em parte",v:50,f:"Follow-up que depende de memória falha justamente na semana cheia — quando há mais oportunidade em jogo."},
-         {t:"Sim, depende de lembrar",v:15,f:"A maior parte das vendas acontece depois do primeiro contato. Sem sistema, você entrega esse pedaço pro acaso."}
-       ]}
+      {q:"Quando chega um contato novo, em quanto tempo você responde?",
+       o:[{t:"Em minutos",v:100},{t:"Em horas",v:50,f:"Responder em horas derruba drasticamente a chance de fechar — lead esfria rápido."},{t:"Dias, ou esqueço",v:10,f:"Demora na resposta é o vazamento nº1: o cliente já fechou com o concorrente."}]},
+      {q:"Você faz follow-up com quem não fechou de primeira?",
+       o:[{t:"Sempre, de forma organizada",v:100},{t:"Às vezes",v:50,f:"A maioria das vendas acontece no follow-up — fazer 'às vezes' deixa muito dinheiro na mesa."},{t:"Nunca",v:10,f:"Sem follow-up, você perde quase todo mundo que não decidiu na hora."}]},
+      {q:"Você separa curioso de quem realmente quer comprar?",
+       o:[{t:"Sim, qualifico os leads",v:100},{t:"Mais ou menos",v:50,f:"Tratar todo lead igual faz você gastar energia com curioso e negligenciar quem ia comprar."},{t:"Não separo",v:15,f:"Sem qualificação, seu time se afoga em contato frio e perde o lead quente."}]}
     ]
   }
-
 };
+
+let state={path:null,answers:[],step:0,furos:[],detalhe:[]};
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo(0,0);
+}
+function go(name){ if(name==='router'){ renderRouter(); show('s-router'); } }
+
+function renderRouter(){
+  const box=document.getElementById('routerOpts'); box.innerHTML='';
+  Object.entries(PATHS).forEach(([key,p])=>{
+    const b=document.createElement('button');
+    b.className='opt';
+    b.innerHTML=`<span class="ic">${p.icon}</span><span>${p.label}</span>`;
+    b.onclick=()=>{ state.path=key; state.answers=[]; state.step=0; state.furos=[]; state.detalhe=[]; renderQuiz(); show('s-quiz'); };
+    box.appendChild(b);
+  });
+  setProg(1);
+}
+
+function renderQuiz(){
+  const p=PATHS[state.path];
+  const q=p.qs[state.step];
+  document.getElementById('qText').innerHTML=q.q;
+  const box=document.getElementById('quizOpts'); box.innerHTML='';
+  q.o.forEach(opt=>{
+    const b=document.createElement('button');
+    b.className='opt';
+    b.textContent=opt.t;
+    b.onclick=()=>{
+      state.answers.push(opt.v);
+      state.detalhe.push({ q: q.q, t: opt.t, v: opt.v });
+      if(opt.f) state.furos.push(opt.f);
+      state.step++;
+      if(state.step < p.qs.length){ renderQuiz(); }
+      else { show('s-contact'); }
+    };
+    box.appendChild(b);
+  });
+  setProg(2+state.step, p.qs.length);
+}
+
+function setProg(current,total){
+  // 4 conceptual steps: router(1) + up to 3 quiz
+  const totalSteps = 1 + (PATHS[state.path]?.qs.length || 3);
+  const pct = Math.min(100, Math.round((current-0.0)/totalSteps*100));
+  ['pbar','pbar2'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.width=pct+'%';});
+  const lbl=`${current}/${totalSteps}`;
+  ['pnum','pnum2'].forEach(id=>{const el=document.getElementById(id); if(el) el.textContent=lbl;});
+}
+
+function finish(){
+  const nome=document.getElementById('nome').value.trim();
+  const wpp=document.getElementById('wpp').value.replace(/\D/g,'');
+  let ok=true;
+  document.getElementById('errNome').classList.toggle('show', !nome); if(!nome) ok=false;
+  const wppOk = wpp.length>=10;
+  document.getElementById('errWpp').classList.toggle('show', !wppOk); if(!wppOk) ok=false;
+  if(!ok) return;
+
+  const score=Math.round(state.answers.reduce((a,b)=>a+b,0)/state.answers.length);
+  renderResult(score, nome);
+  show('s-result');
+  salvarNoCapta({ nome, whatsapp: wpp, score });   // grava no painel do Capta (não trava a tela)
+}
+
+function renderResult(score, nome){
+  const p=PATHS[state.path];
+  // gauge
+  const circ=540, off=circ-(circ*score/100);
+  const arc=document.getElementById('gArc');
+  let color=score>=70?'var(--hot)':score>=40?'var(--warm)':'var(--cold)';
+  arc.style.stroke=color;
+  requestAnimationFrame(()=>{ arc.style.transition='stroke-dashoffset 1.1s cubic-bezier(.2,.7,.2,1)'; arc.style.strokeDashoffset=off; });
+  animateNum(document.getElementById('gVal'), score);
+
+  // temperature
+  const t=document.getElementById('tempBadge');
+  let temp = score>=70?{e:'🔥',x:'Aquecido',c:'var(--hot)'}:score>=40?{e:'🌡️',x:'Morno',c:'var(--warm)'}:{e:'❄️',x:'No escuro',c:'var(--cold)'};
+  t.innerHTML=`${temp.e} ${temp.x}`; t.style.color=temp.c;
+  t.style.background='color-mix(in srgb,'+temp.c+' 14%, transparent)';
+  t.style.border='1px solid color-mix(in srgb,'+temp.c+' 40%, transparent)';
+
+  document.getElementById('rHead').innerHTML=`${nome?nome.split(' ')[0]+', ':''}foque em <em>${p.service}</em>`;
+  document.getElementById('rDesc').textContent=p.desc;
+
+  const fbox=document.getElementById('rFuros'); fbox.innerHTML='';
+  const furos = state.furos.length? state.furos.slice(0,3) : ['Seu ponto está saudável aqui — a oportunidade agora é acelerar e escalar o que já funciona.'];
+  furos.forEach(f=>{
+    const d=document.createElement('div'); d.className='furo';
+    d.innerHTML=`<span class="fx">→</span><span>${f}</span>`;
+    fbox.appendChild(d);
+  });
+
+  const msg=encodeURIComponent(`Oi! Fiz o Raio-X 360 da RISE no DSX. Meu resultado foi ${score}/100 e minha maior oportunidade é ${p.service}. Quero conversar sobre isso.`);
+  document.getElementById('waBtn').onclick=()=>window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
+}
+
+function animateNum(el,target){
+  let cur=0; const dur=1000, t0=performance.now();
+  function tick(t){ const k=Math.min(1,(t-t0)/dur); el.textContent=Math.round(target*(1-Math.pow(1-k,3))); if(k<1)requestAnimationFrame(tick); }
+  requestAnimationFrame(tick);
+}
+
+function restart(){
+  state={path:null,answers:[],step:0,furos:[],detalhe:[]};
+  document.getElementById('nome').value=''; document.getElementById('wpp').value='';
+  document.getElementById('gArc').style.strokeDashoffset=540;
+  show('s-intro');
+}
+</script>
+</body>
+</html>
